@@ -21,7 +21,8 @@ function renderResults(result) {
                         <p>' + filters[i].name + '</p>\
                     </div>'));
     }
-    lightbox.init();
+    if (!lightbox.containerBottomPadding)
+        lightbox.init();
 }
 
 function onError() {
