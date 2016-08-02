@@ -18,7 +18,7 @@ function renderResults(result) {
                         <a href="' + src + '" class="thumbnail" data-lightbox="image" data-title="' + filters[i].name + '">\
                             <img src="' + src + '">\
                         </a>\
-                        <p>' + filters[i].name + '</p>\
+                        <p class="text-center">' + filters[i].name + '</p>\
                     </div>'));
     }
     if (!lightbox.containerBottomPadding)
