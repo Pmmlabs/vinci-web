@@ -68,7 +68,7 @@ $(function () {
                         minCropBoxHeight: 200
                     });
                     if (big)
-                        $(cropImg).cropper('scale', 1080 / this.width).cropper('zoomTo', 1);
+                        $(cropImg).cropper('scale', (this.width ? $('#crop').width() / this.width : $('#crop').height() / this.height)).cropper('zoomTo', 1);
                 }
             };
             cropImg.src = e.target.result;
