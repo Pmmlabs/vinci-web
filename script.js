@@ -47,7 +47,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 $(function () {
     $.get(PROXY + endpoints['list'], function (_filters) {
         filters = _filters;
-    });
+    }, 'json');
 
     $('#fileUpload').attr('action', PROXY + endpoints['preload']).find('input').change(function () {
         var reader = new FileReader();
