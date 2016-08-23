@@ -85,7 +85,7 @@ $(function () {
         else {
             $(cropImg).cropper('getCroppedCanvas').toBlob(function (blob) {
                 var formData = new FormData();
-                formData.append('photo', blob);
+                formData.append('photo.jpg', blob, 'photo.jpg');
                 $('#crop').empty();
                 $.ajax(PROXY + endpoints['preload'], {
                     method: "POST",
