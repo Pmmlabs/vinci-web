@@ -4,7 +4,7 @@ var endpoints = {
     'preload': 'http://vinci.camera/preload',
     'process': 'http://vinci.camera/process'
 }
-    , square = false
+    , big = false
     , cropImg
     , filters;
 
@@ -54,21 +54,18 @@ $(function () {
         reader.onload = function (e) {
             cropImg = document.createElement('img');
             cropImg.onload = function () {
-                square = Math.abs(this.width - this.height) < 10;
-                var big = (this.width > 1080 || this.height > 1440) && (this.height > 1080 || this.width > 1440);
+                big = (this.width > 1080 || this.height > 1440) && (this.height > 1080 || this.width > 1440);
                 if (this.width < 200 || this.height < 200) {
                     alert('Изображение должно быть больше чем 200x200')
-                } else if (!square || big) {
+                } else if (big) {
                     $('#crop').html(this);
                     $(this).cropper({
-                        aspectRatio: 1,
                         viewMode: 2,
                         autoCropArea: 1,
                         minCropBoxWidth: 200,
                         minCropBoxHeight: 200
                     });
-                    if (big)
-                        $(cropImg).cropper('scale', (this.width ? $('#crop').width() / this.width : $('#crop').height() / this.height)).cropper('zoomTo', 1);
+                    $(cropImg).cropper('scale', (this.width ? $('#crop').width() / this.width : $('#crop').height() / this.height)).cropper('zoomTo', 1);
                 }
             };
             cropImg.src = e.target.result;
@@ -77,7 +74,7 @@ $(function () {
     });
 
     $('#submit').click(function () {
-        if (square)
+        if (!big)
             $('#fileUpload').ajaxSubmit({
                 success: renderResults,
                 error: onError
