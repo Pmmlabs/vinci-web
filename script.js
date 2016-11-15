@@ -6,7 +6,13 @@ var endpoints = {
 }
     , big = false
     , cropImg
-    , filters;
+    , filters
+    , hidden_filters = [{id: 21, name: 'Suicide'}
+                      , {id: 6, name: '6'}
+                      , {id: 14, name: '14'}
+                      , {id: 16, name: '16'}
+                      , {id: 20, name: '20'}
+                      ];
 
 function renderResults(result) {
     var row = $('#thumbs');
@@ -47,6 +53,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 $(function () {
     $.get(PROXY + endpoints['list'], function (_filters) {
         filters = _filters;
+        $.extend(filters, hidden_filters);
     }, 'json');
 
     $('#fileUpload').attr('action', PROXY + endpoints['preload']).find('input').change(function () {
