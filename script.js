@@ -7,26 +7,26 @@ var endpoints = {
     , big = false
     , cropImg
     , filters
-    , hidden_filters = [{id: 21, name: 'Suicide'}
-                      , {id: 6, name: '6'}
-                      , {id: 14, name: '14'}
-                      , {id: 16, name: '16'}
-                      , {id: 20, name: '20'}
-                      ];
+    , hidden_filters
+    , row;
 
-function renderResults(result) {
-    var row = $('#thumbs');
-    row.empty();
-    $('input').val('');
-    for (var i in filters) {
-        var src = endpoints['process'] + '/' + result.preload + '/' + filters[i].id;
+function add_images(filter_set, image_id, sup) {
+    for (var i in filter_set) {
+        var src = endpoints['process'] + '/' + image_id + '/' + filter_set[i].id;
         row.append($('<div class="col-xs-6 col-md-3">\
-                        <a href="' + src + '" class="thumbnail" data-lightbox="image" data-title="' + filters[i].name + '">\
-                            <img src="' + src + '">\
+                        <a href="' + src + '" class="thumbnail" data-lightbox="image" data-title="' + filter_set[i].name + '">\
+                            <img onerror="if (!~this.src.indexOf(\'?????\')) this.src+=\'?\'" src="' + src + '">\
                         </a>\
-                        <p class="text-center">' + filters[i].name + '</p>\
+                        <p class="text-center">' + filter_set[i].name + (sup ? '<sup>'+sup+'</sup>' : '') + '</p>\
                     </div>'));
     }
+}
+
+function renderResults(result) {
+    row.empty();
+    $('input').val('');
+    add_images(filters, result.preload);
+    add_images(hidden_filters, result.preload, '&#128065;');
     if (!lightbox.containerBottomPadding)
         lightbox.init();
 }
@@ -51,11 +51,13 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 }
 
 $(function () {
-    $.get(PROXY + endpoints['list'], function (_filters) {
+    row = $('#thumbs');
+    $.getJSON(PROXY + endpoints['list'], function (_filters) {
         filters = _filters;
-        $.extend(filters, hidden_filters);
-    }, 'json');
-
+    });
+    $.getJSON('hidden_filters.json', function(_hidden_filters) {
+        hidden_filters = _hidden_filters;
+    });
     $('#fileUpload').attr('action', PROXY + endpoints['preload']).find('input').change(function () {
         var reader = new FileReader();
         reader.onload = function (e) {
