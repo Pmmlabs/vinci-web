@@ -341,6 +341,18 @@
     "color": 0
   },
   {
+    "id": "66",
+    "name": "Ghost",
+    "file": "http://vinci.camera/list/66/gh1.jpg",
+    "new": 0,
+    "load_text": "",
+    "extra": 0,
+    "extra_title": "",
+    "extra_desc": "",
+    "color": 0,
+    "no_logo": 0
+  },
+  {
     "id": "4201",
     "name": "Times",
     "file": "http://vinci.camera/list/4201/times.jpg",
