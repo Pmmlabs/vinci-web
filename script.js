@@ -12,7 +12,7 @@ var endpoints = {
 
 function add_images(filter_set, image_id, sup) {
     for (var i in filter_set) {
-        var src = endpoints['process'] + '/' + image_id + '/' + filter_set[i].id;
+        var src = PROXY + endpoints['process'] + '/' + image_id + '/' + filter_set[i].id;
         row.append($('<div class="col-xs-6 col-md-3">\
                         <a href="' + src + '" class="thumbnail" data-lightbox="image" data-title="' + filter_set[i].name + '">\
                             <img onerror="if (!~this.src.indexOf(\'?????\')) this.src+=\'?\'" src="' + src + '">\
