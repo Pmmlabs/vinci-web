@@ -1,4 +1,4 @@
-const PROXY = 'https://cors-pmmlabs.rhcloud.com/';
+const PROXY = 'http://cors.pmmlabs.ru/';
 var endpoints = {
     'list': 'http://vinci.camera/list',
     'preload': 'http://vinci.camera/preload',
